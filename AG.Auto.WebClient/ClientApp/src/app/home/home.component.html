@@ -1,0 +1,125 @@
+<!--<div>导出</div>
+<button (click)="daochu()">导出</button>-->
+
+<input type="file" (change)="daoru($event)"/>
+<div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">温度</span>
+    </div>
+    <input type="text" class="form-control" placeholder="温度1150" aria-label="Username" aria-describedby="basic-addon1">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">到</span>
+    </div>
+    <input type="text" class="form-control" placeholder="温度1450" aria-label="Username" aria-describedby="basic-addon1">
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">出钢温度</span>
+    </div>
+    <input type="text" class="form-control" placeholder="出钢温度1600" aria-label="Username" aria-describedby="basic-addon1">
+    <div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">到</span>
+    </div>
+    <input type="text" class="form-control" placeholder="出钢温度1750" aria-label="Username" aria-describedby="basic-addon1">
+    <!--<div class="input-group-prepend">
+      <span class="input-group-text" id="basic-addon1">实际钢种</span>
+    </div>
+    <input type="text" class="form-control" placeholder="实际钢种" aria-label="Username" aria-describedby="basic-addon1">-->
+  </div>
+  <div class="input-group mb-3">
+    <div class="input-group-prepend">
+      <span class="input-group-text">铁水成分</span>
+      <span class="input-group-text">C</span>
+    </div>
+    <input type="text" class="form-control" placeholder="C" aria-label="Username" aria-describedby="basic-addon1">
+    <div class="input-group-prepend">
+      <span class="input-group-text">SI</span>
+    </div>
+    <input type="text" class="form-control" placeholder="SI" aria-label="Username" aria-describedby="basic-addon1">
+    <div class="input-group-prepend">
+      <span class="input-group-text">Mn</span>
+    </div>
+    <input type="text" class="form-control" placeholder="Mn" aria-label="Username" aria-describedby="basic-addon1">
+    <div class="input-group-prepend">
+      <span class="input-group-text">P</span>
+    </div>
+    <input type="text" class="form-control" placeholder="P" aria-label="Username" aria-describedby="basic-addon1">
+    <div class="input-group-prepend">
+      <span class="input-group-text">S</span>
+    </div>
+    <input type="text" class="form-control" placeholder="S" aria-label="Username" aria-describedby="basic-addon1">
+  </div>
+  <button type="button" class="btn btn-primary">查询</button>
+</div>
+<div class="table-responsive">
+  <table class="table table-bordered table-dark" id="table_data">
+    <thead>
+      <tr>
+        <th scope="col" rowspan="2">#</th>
+        <!--<th scope="col" rowspan="2">熔炼号</th>-->
+        <!--<th scope="col" rowspan="2">温度</th>-->
+        <th scope="col" colspan="5">铁水成分</th>
+        <th scope="col" rowspan="2">实际钢种</th>
+        <th scope="col" colspan="3">装入量</th>
+        <th scope="col" colspan="3">出钢</th>
+      </tr>
+      <tr>
+        <th scope="col">C</th>
+        <th scope="col">SI</th>
+        <th scope="col">Mn</th>
+        <th scope="col">P</th>
+        <th scope="col">S</th>
+        <th scope="col">铁水</th>
+        <th scope="col">废钢</th>
+        <th scope="col">合计</th>
+        <th scope="col">温度</th>
+        <th scope="col">C</th>
+        <th scope="col">P</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of data; index as i ">
+        <th scope="row">{{i+1}}</th>
+        <!--<td>{{data["熔炼号"]}}</td>-->
+        <!--<td>{{data["温度"]}}</td>-->
+        <td>{{data["铁水成分：C"]}}</td>
+        <td>{{data["铁水成分：SI"]}}</td>
+        <td>{{data["铁水成分：Mn"]}}</td>
+        <td>{{data["铁水成分：P"]}}</td>
+        <td>{{data["铁水成分：S"]}}</td>
+        <td>{{data["实际钢种"]}}</td>
+        <td>{{data["装入量：铁水"]}}</td>
+        <td>{{data["装入量：废钢"]}}</td>
+        <td>{{data["装入量：合计"]}}</td>
+        <td>{{data["出钢温度"]}}</td>
+        <td></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true" ng-click="prev()"><</a>
+      </li>
+      <li ng-class="{active:isActivePage(page)}" ng-repeat="page in pageList">
+      <a class="page-link" href="#" ng-click="selectPage(page)">{{page}}</a>
+      </li>
+      <li class="page-item">
+        <a class="page-link" href="#" ng-click="next()">></a>
+      </li>
+    </ul>
+  </nav>
+</div>
+
+<style>
+  .table thead tr th {
+    text-align:center;
+    vertical-align:central;
+  }
+  .table tbody tr td {
+    text-align: center;
+    vertical-align: central;
+  }
+</style>
