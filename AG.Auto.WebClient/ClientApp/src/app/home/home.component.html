@@ -1,86 +1,95 @@
 <!--<div>导出</div>
 <button (click)="daochu()">导出</button>-->
-
-<input type="file" (change)="daoru($event)"/>
 <div>
   <div class="input-group mb-3">
+    <input class="input-group-text" type="file" (change)="daoru($event)" />
+
+    <!--<div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">实际钢种</span>
+  </div>
+  <input type="text" class="form-control" placeholder="暂时不用做" aria-label="Username" aria-describedby="basic-addon1">-->
+  </div>
+  <div class="input-group mb-3">
     <div class="input-group-prepend">
-      <span class="input-group-text" id="basic-addon1">温度</span>
+      <span class="input-group-text" id="basic-addon1">铁水温度</span>
     </div>
-    <input type="text" class="form-control" placeholder="温度1150" aria-label="Username" aria-describedby="basic-addon1">
+    <input type="text" class="form-control" placeholder="铁水温度1150" [(ngModel)]="query_where.q_iron_temperature_from">
     <div class="input-group-prepend">
       <span class="input-group-text" id="basic-addon1">到</span>
     </div>
-    <input type="text" class="form-control" placeholder="温度1450" aria-label="Username" aria-describedby="basic-addon1">
+    <input type="text" class="form-control" placeholder="铁水温度1450" [(ngModel)]="query_where.q_iron_temperature_to">
   </div>
   <div class="input-group mb-3">
     <div class="input-group-prepend">
       <span class="input-group-text" id="basic-addon1">出钢温度</span>
     </div>
-    <input type="text" class="form-control" placeholder="出钢温度1600" aria-label="Username" aria-describedby="basic-addon1">
+    <input type="text" class="form-control" placeholder="出钢温度1600" [(ngModel)]="query_where.q_steel_temperature_from">
     <div class="input-group-prepend">
       <span class="input-group-text" id="basic-addon1">到</span>
     </div>
-    <input type="text" class="form-control" placeholder="出钢温度1750" aria-label="Username" aria-describedby="basic-addon1">
-    <!--<div class="input-group-prepend">
-      <span class="input-group-text" id="basic-addon1">实际钢种</span>
-    </div>
-    <input type="text" class="form-control" placeholder="实际钢种" aria-label="Username" aria-describedby="basic-addon1">-->
+    <input type="text" class="form-control" placeholder="出钢温度1750" [(ngModel)]="query_where.q_steel_temperature_to">
   </div>
   <div class="input-group mb-3">
     <div class="input-group-prepend">
       <span class="input-group-text">铁水成分</span>
-      <span class="input-group-text">C</span>
     </div>
-    <input type="text" class="form-control" placeholder="C" aria-label="Username" aria-describedby="basic-addon1">
+
     <div class="input-group-prepend">
-      <span class="input-group-text">SI</span>
+      <span class="input-group-text">Si</span>
     </div>
-    <input type="text" class="form-control" placeholder="SI" aria-label="Username" aria-describedby="basic-addon1">
+    <input type="text" class="form-control" placeholder="0.01" [(ngModel)]="query_where.q_iron_si_from">
     <div class="input-group-prepend">
-      <span class="input-group-text">Mn</span>
+      <span class="input-group-text">到</span>
     </div>
-    <input type="text" class="form-control" placeholder="Mn" aria-label="Username" aria-describedby="basic-addon1">
+    <input type="text" class="form-control" placeholder="2.00 " [(ngModel)]="query_where.q_iron_si_to">
     <div class="input-group-prepend">
-      <span class="input-group-text">P</span>
+      <span class="input-group-text">点吹</span>
+    </div>    
+    <div class="btn-group-toggle" data-toggle="buttons">
+      <label class="btn btn-secondary active">
+        <input type="checkbox" [(ngModel)]="query_where.q_blow_checked"> {{ query_where.q_blow_checked?"是":"否" }}
+      </label>
     </div>
-    <input type="text" class="form-control" placeholder="P" aria-label="Username" aria-describedby="basic-addon1">
-    <div class="input-group-prepend">
-      <span class="input-group-text">S</span>
-    </div>
-    <input type="text" class="form-control" placeholder="S" aria-label="Username" aria-describedby="basic-addon1">
   </div>
-  <button type="button" class="btn btn-primary">查询</button>
+  <div class="input-group mb-3">
+    <button type="button" class="btn btn-primary" (click)="select()">查询</button>
+  </div>
 </div>
-<div class="table-responsive">
-  <table class="table table-bordered table-dark" id="table_data">
-    <thead>
-      <tr>
-        <th scope="col" rowspan="2">#</th>
-        <!--<th scope="col" rowspan="2">熔炼号</th>-->
-        <!--<th scope="col" rowspan="2">温度</th>-->
-        <th scope="col" colspan="5">铁水成分</th>
-        <th scope="col" rowspan="2">实际钢种</th>
-        <th scope="col" colspan="3">装入量</th>
-        <th scope="col" colspan="3">出钢</th>
-      </tr>
-      <tr>
-        <th scope="col">C</th>
-        <th scope="col">SI</th>
-        <th scope="col">Mn</th>
-        <th scope="col">P</th>
-        <th scope="col">S</th>
-        <th scope="col">铁水</th>
-        <th scope="col">废钢</th>
-        <th scope="col">合计</th>
-        <th scope="col">温度</th>
-        <th scope="col">C</th>
-        <th scope="col">P</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let data of data; index as i ">
-        <th scope="row">{{i+1}}</th>
+  <div class="table-responsive">
+    <table class="table table-bordered table-dark" id="table_data">
+      <thead>
+        <tr>
+          <th scope="col" rowspan="2">#</th>
+          <!--<th scope="col" rowspan="2">熔炼号</th>-->
+          <!--<th scope="col" rowspan="2">温度</th>-->
+          <th scope="col" colspan="5">铁水成分</th>
+          <!--<th scope="col" rowspan="2">实际钢种</th>-->
+          <th scope="col" colspan="3">装入量</th>
+          <th scope="col" rowspan="2">轻烧白云石</th>
+          <th scope="col" rowspan="2">烧结矿</th>
+          <th scope="col" rowspan="2">石灰石（优质）</th>
+          <th scope="col" rowspan="2">冶金石灰</th>
+          <th scope="col" rowspan="2">转炉稀渣剂B</th>
+          <th scope="col" colspan="3">出钢</th>
+        </tr>
+        <tr>
+          <th scope="col">C</th>
+          <th scope="col">Si</th>
+          <th scope="col">Mn</th>
+          <th scope="col">P</th>
+          <th scope="col">S</th>
+          <th scope="col">铁水</th>
+          <th scope="col">废钢</th>
+          <th scope="col">合计</th>
+          <th scope="col">温度</th>
+          <th scope="col">C</th>
+          <th scope="col">P</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of query_data; index as i ">
+          <th scope="row">{{i+1
+        }}</th>
         <!--<td>{{data["熔炼号"]}}</td>-->
         <!--<td>{{data["温度"]}}</td>-->
         <td>{{data["铁水成分：C"]}}</td>
@@ -88,38 +97,31 @@
         <td>{{data["铁水成分：Mn"]}}</td>
         <td>{{data["铁水成分：P"]}}</td>
         <td>{{data["铁水成分：S"]}}</td>
-        <td>{{data["实际钢种"]}}</td>
+        <!--<td>{{data["实际钢种"]}}</td>-->
         <td>{{data["装入量：铁水"]}}</td>
         <td>{{data["装入量：废钢"]}}</td>
         <td>{{data["装入量：合计"]}}</td>
+        <td>{{data["轻烧白云石"]}}</td>
+        <td>{{data["烧结矿"]}}</td>
+        <td>{{data["石灰石（优质）"]}}</td>
+        <td>{{data["冶金石灰"]}}</td>
+        <td>{{data["转炉稀渣剂B"]}}</td>
         <td>{{data["出钢温度"]}}</td>
         <td></td>
         <td></td>
-      </tr>
-    </tbody>
-  </table>
-  <nav aria-label="Page navigation example">
-    <ul class="pagination justify-content-center">
-      <li class="page-item disabled">
-        <a class="page-link" href="#" tabindex="-1" aria-disabled="true" ng-click="prev()"><</a>
-      </li>
-      <li ng-class="{active:isActivePage(page)}" ng-repeat="page in pageList">
-      <a class="page-link" href="#" ng-click="selectPage(page)">{{page}}</a>
-      </li>
-      <li class="page-item">
-        <a class="page-link" href="#" ng-click="next()">></a>
-      </li>
-    </ul>
-  </nav>
+        </tr>
+        </tbody>
+        </table>
 </div>
 
-<style>
-  .table thead tr th {
-    text-align:center;
-    vertical-align:central;
-  }
-  .table tbody tr td {
-    text-align: center;
-    vertical-align: central;
-  }
-</style>
+  <style>
+    .table thead tr th {
+      text-align: center;
+      vertical-align: central;
+    }
+
+    .table tbody tr td {
+      text-align: center;
+      vertical-align: central;
+    }
+  </style>
